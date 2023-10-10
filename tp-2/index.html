@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Listas javascript</title>
+</head>
+<body>
+<p>Completar con la implementación de las funciones correspondientes</p>
+<script type="text/javascript">
+var listaNumerosEjemplo = [2,4,6,-1,5,-4,0];
+
+
+/**
+ * Recibe
+ * - `listaDeNumeros`: una lista (array) de números.
+ * 
+ * Retorna: 
+ * - una lista de números con los mismos elementos pero en orden inverso al que fueron recibidos.
+ * 
+ * Ejemplos:
+ * - invertirLista([2,3,4]) retorna [4,3,2]
+ */function invertirLista(listaDeNumeros) {
+  // Cree una nueva lista vacía para almacenar los elementos en orden inverso.
+  var listaInvertida = [];
+  
+  // Recorri la lista de números desde el último elemento hasta el primero.
+  for (var i = listaDeNumeros.length - 1; i >= 0; i--) {
+    // Agrege cada elemento a la nueva lista.
+    listaInvertida.push(listaDeNumeros[i]);
+  }
+  
+  // Retorne la lista invertida.
+  return listaInvertida;
+}
+
+console.log("invertirLista([2,3,4]): ", invertirLista([2,3,4]));
+console.log("invertirLista(listaNumerosEjemplo): ", invertirLista(listaNumerosEjemplo));
+
+
+
+
+/**
+ * Recibe
+ * - `listaDeNumeros`: una lista (array) de números.
+ * 
+ * Retorna: 
+ * - un numero, con el valor calculado de promedio para los números en la lista recibida.
+ * 
+ * Ejemplos:
+ * - calcularPromedio([2,3,4]) retorna 3
+ */
+
+ function calcularPromedio(listaDeNumeros) {
+  // Verifique si la lista está vacía para evitar la división por cero.
+  if (listaDeNumeros.length === 0) {
+    return 0; // Devolvemos 0 si la lista está vacía.
+  }
+
+  // Sume todos los números en la lista.
+  var suma = 0;
+  for (var i = 0; i < listaDeNumeros.length; i++) {
+    suma += listaDeNumeros[i];
+  }
+
+  // Calcule el promedio dividiendo la suma entre la cantidad de números.
+  var promedio = suma / listaDeNumeros.length;
+
+  return promedio;
+}
+
+console.log("calcularPromedio([10,10,10]): ", calcularPromedio([10,10,10]));
+console.log("calcularPromedio(listaNumerosEjemplo): ", calcularPromedio(listaNumerosEjemplo));
+
+/**
+ * Recibe
+ * - `inicio`: un número, con el valor inicial de la lista
+ * - `fin`: un número, con el valor final de la lista
+ * 
+ * Retorna: 
+ * - una lista (array) con valores numéricos en secuencia, desde `inicio` hasta `fin`.
+ * 
+ * Ejemplos:
+ * - crearListaDeNumeros(1,5) retorna [1,2,3,4,5]
+ * - crearListaDeNumeros(3,6) retorna [3,4,5,6]
+ * - crearListaDeNumeros(2,2) retorna [2]
+ */
+ function crearListaDeNumeros(inicio, fin) {
+  // Verificamos si `inicio` es mayor que `fin` y manejamos este caso.
+  if (inicio > fin) {
+    return [];
+  }
+
+  // Cree una nueva lista vacía para almacenar la secuencia de números.
+  var lista = [];
+
+  // Use un bucle for para generar la secuencia de números.
+  for (var i = inicio; i <= fin; i++) {
+    lista.push(i);
+  }
+
+  return lista;
+}
+
+console.log("crearListaDeNumeros(1,10): ", crearListaDeNumeros(1,10));
+console.log("crearListaDeNumeros(1,5): ", crearListaDeNumeros(1,5));
+console.log("crearListaDeNumeros(3,6): ", crearListaDeNumeros(3,6));
+console.log("crearListaDeNumeros(2,2): ", crearListaDeNumeros(2,2));
+
+
+/**
+ * Recibe
+ * - `listaDeNumeros`: una lista (array) de números.
+ * 
+ * Retorna: 
+ * - una lista de números con los mismos elementos pero en orden decreciente (de mayor a menor).
+ * 
+ * Ejemplos:
+ * - ordenarDeMayorAMenor([2,-1,4]) retorna [4,2,-1]
+ */
+ function ordenarDeMayorAMenor(listaDeNumeros) {
+  // Use el método sort() para ordenar la lista de números de manera decreciente.
+  // El método sort() ordena de forma alfabética por defecto, 
+  return listaDeNumeros.sort(function(a, b) {
+    return b - a;
+  });
+}
+
+console.log("ordenarDeMayorAMenor([2,3,4]): ", ordenarDeMayorAMenor([2,3,4]));
+console.log("ordenarDeMayorAMenor(listaNumerosEjemplo): ", ordenarDeMayorAMenor(listaNumerosEjemplo));
+
+
+
+/**
+ * Recibe
+ * - `listaDeNumeros`: una lista (array) de números.
+ * 
+ * Retorna: 
+ * - un numero, con el valor del numero más grande contenido en la lista recibida.
+ * 
+ * Ejemplos:
+ * - encontrarNumeroMayor([2,3,4]) retorna 4
+ */
+ function encontrarNumeroMayor(listaDeNumeros) {
+  // Inicialize una variable para almacenar el número más grande.
+  var numeroMayor = listaDeNumeros[0];
+
+  // Recorre la lista para encontrar el número más grande.
+  for (var i = 1; i < listaDeNumeros.length; i++) {
+    if (listaDeNumeros[i] > numeroMayor) {
+      numeroMayor = listaDeNumeros[i];
+    }
+  }
+
+  return numeroMayor;
+}
+
+console.log("encontrarNumeroMayor([1,20,35]): ", encontrarNumeroMayor([1,20,35]));
+console.log("encontrarNumeroMayor(listaNumerosEjemplo): ", encontrarNumeroMayor(listaNumerosEjemplo));
+
+
+/**
+ * Recibe
+ * - `listaDePalabras`: una lista (array) de palabras (string).
+ * 
+ * Retorna: 
+ * - una lista (array) de palabras (string), con los mismos valores que la lista recibida pero ordenados de manera creciente de acuerdo a su cantidad de caracteres.
+ * 
+ * Ejemplos:
+ * - ordenarPalabrasPorLongitud(['abc', 'a', 'ab']) retorna ['a', 'ab', 'abc']
+ */
+ function ordenarPalabrasPorLongitud(listaDePalabras) {
+  // Use el método sort() para ordenar la lista de palabras en base a su longitud.
+  // La función de comparación compara las longitudes de las palabras.
+  return listaDePalabras.sort(function(a, b) {
+    return a.length - b.length;
+  });
+}
+
+console.log("ordenarPalabrasPorLongitud(['abc', 'a', 'ab']): ", ordenarPalabrasPorLongitud(['abc', 'a', 'ab']));
+
+
+/**
+ * Recibe
+ * - `listaDePalabras`: una lista (array) de palabras (string).
+ * 
+ * Retorna: 
+ * - una palabras (string) que dentro del listado tenga la menor cantidad de caracteres de longitud. En caso de que haya varias palabras con la misma longitud, se puede devolver la primera encontrada.
+ * 
+ * Ejemplos:
+ * - encontrarPalabraMasCorta(['abc', 'a', 'ab', 'c']) retorna 'a'
+ */
+ function encontrarPalabraMasCorta(listaDePalabras) {
+  // Inicialize una variable para almacenar la palabra más corta con la primera palabra de la lista.
+  var palabraMasCorta = listaDePalabras[0];
+
+  // Recorre la lista para encontrar la palabra más corta.
+  for (var i = 1; i < listaDePalabras.length; i++) {
+    if (listaDePalabras[i].length < palabraMasCorta.length) {
+      palabraMasCorta = listaDePalabras[i];
+    }
+  }
+
+  return palabraMasCorta;
+}
+
+console.log("encontrarPalabraMasCorta(['abc', 'a', 'ab']): ", encontrarPalabraMasCorta(['abc', 'a', 'ab']));
+
+
+/**
+ * Recibe
+ * - `listaDeNumeros`: una lista (array) de números.
+ * 
+ * Retorna: 
+ * - una lista (array) de números, conteniendo sólo los valores positivos de la lista de números recibida.
+ * 
+ * Ejemplos:
+ * - filtrarSoloPositivos([1,-1,2]) retorna [1,2]
+ */
+ function filtrarSoloPositivos(listaDeNumeros) {
+  // Use el método filter() para crear una nueva lista que contenga solo los valores positivos.
+  return listaDeNumeros.filter(function(numero) {
+    return numero > 0;
+  });
+}
+
+console.log("filtrarSoloPositivos([1,-1,0]): ", filtrarSoloPositivos([1,-1,0]));
+console.log("filtrarSoloPositivos(listaNumerosEjemplo): ", filtrarSoloPositivos(listaNumerosEjemplo));
+
+
+/**
+ * Recibe
+ * - `listaDeNotas`: una lista (array) de números con valores entre 1 y 10.
+ * 
+ * Retorna: 
+ * - un numero, con la cantidad de notas que superan el criterio de aprobación.
+ * 
+ * Ejemplos:
+ * - contarAprobados([10,2,9]) retorna 2
+ */
+ function contarAprobados(listaDeNotas) {
+  // Use el método filter() para crear una nueva lista que contenga solo las notas aprobadas.
+  var notasAprobadas = listaDeNotas.filter(function(nota) {
+    return nota >= 6; // este valor se puede cambiar a la eleccion que quieras.
+  });
+
+  // La longitud de la nueva lista es la cantidad de notas aprobadas.
+  return notasAprobadas.length;
+}
+
+console.log("contarAprobados([10, 4, 6, 7, 1, 9]): ", contarAprobados([10, 4, 6, 7, 1, 9]));
+
+
+/**
+ * Recibe
+ * - `listaDeValores`: una lista (array) de valores de distintos tipos.
+ * 
+ * Retorna: 
+ * - una lista (array) conteniendo sólo los valores que son considerados 'truthy' por el lenguaje JavaScript
+ * 
+ * Ejemplos:
+ * - filtrarSoloTruthy(["Hola", "", 0, 1]) retorna ["Hola", 1]
+ */
+ function filtrarSoloTruthy(listaDeValores) {
+  // Use el método filter() para crear una nueva lista que contenga solo los valores "truthy".
+  return listaDeValores.filter(function(valor) {
+    return !!valor; // Doble negación para evaluar el valor como "truthy".
+  });
+}
+
+console.log("filtrarSoloTruthy(): ", filtrarSoloTruthy(["Hola", "", null, 1, 0, -1, undefined, [], {}]));
+
+/**
+ * Recibe
+ * - `listaDePalabras`: una lista (array) de palabras (strings).
+ * 
+ * Retorna: 
+ * - Una oración (string), donde se enumeran cada una de las palabras recibidas en la lista.
+ * - Bonus: una oración correctamente formada debería empezar en mayúscula, terminar con punto, y además el ultimo elemento de enumeración deberia estar separado con "y".
+ * 
+ * Ejemplos:
+ * - enumerarLista(["Han", "Leia", "Luke", "Yoda"]) "Han, Leia, Luke y Yoda."
+ */
+ function enumerarLista(listaDePalabras) {
+  // Verifique si la lista está vacía.
+  if (listaDePalabras.length === 0) {
+    return ""; // Devolvemos una cadena vacía si la lista está vacía.
+  }
+
+  // Inicialize la oración con la primera palabra en mayúscula.
+  var oracion = listaDePalabras[0][0].toUpperCase() + listaDePalabras[0].substring(1);
+
+  // Construi la oración enumerando las palabras.
+  for (var i = 1; i < listaDePalabras.length; i++) {
+    // Si es el último elemento, lo concatenamos con "y" y punto.
+    if (i === listaDePalabras.length - 1) {
+      oracion += " y " + listaDePalabras[i] + ".";
+    } else {
+      oracion += ", " + listaDePalabras[i];
+    }
+  }
+
+  return oracion;
+}
+
+console.log("enumerarLista(): ", enumerarLista(["Han", "Leia", "Luke", "Yoda"]));
+
+</script>
+</body>
+</html>
