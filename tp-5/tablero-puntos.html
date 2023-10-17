@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tablero de Puntos - DOM y JavaScript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container my-1 my-sm-2 my-md-4 my-lg-5">
+    <h1>Tablero de Puntos</h1>
+    <p class="lead">El objetivo es construir un tablero para mostrar el puntaje de un partido entre 2 equipos.</p>
+    <h2 class="h3">Objetivos Adicionales</h2>
+    <ol>
+        <li>En lugar de tener un único boton para incrementar los puntos del equipo, se desea tener un botón para <strong>incrementar (+)</strong> y otro para <strong>decrementar (-)</strong> los puntos de cada equipo.</li>
+        <li>Agregar la acción de <strong>invertir puntaje</strong>, para intercambiar los puntos entre el equipo local y el equipo visitante.</li>
+        <li>Agregar la acción de <strong>finalizar partido</strong>, que deshabilita los botones de puntaje, para que ya no se puedan sumar puntos. Los botones se tendrían que volver a habilitar cuando se reinicia el tablero.</li>
+    </ol>
+
+    <!-- Card de Aplicación -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row text-center">
+                <div class="col-5">
+                    <span id="local-score" class="display-1">0</span>
+                    <p class="m-0">Local</p>
+                </div>
+                <div class="col-2">
+                    <span class="display-1">:</span>
+                </div>
+                <div class="col-5">
+                    <span id="visitor-score" class="display-1">0</span>
+                    <p class="m-0">Visitante</p>
+                </div>
+            </div>
+
+            <hr class="hr">
+
+            <h2>Actualizar Contador</h2>
+            <div class="row">
+                <div class="col-12 col-sm-4 my-1">
+                    <button id="increment-local" class="btn d-block w-100 btn-primary">
+                        Incrementar Local (+)
+                    </button>
+                </div>
+                <div class="col-12 col-sm-4 my-1">
+                    <button id="decrement-local" class="btn d-block w-100 btn-primary">
+                        Decrementar Local (-)
+                    </button>
+                </div>
+                <div class="col-12 col-sm-4 my-1">
+                    <button id="increment-visitor" class="btn d-block w-100 btn-primary">
+                        Incrementar Visitante (+)
+                    </button>
+                </div>
+                <div class="col-12 col-sm-4 my-1">
+                    <button id="decrement-visitor" class="btn d-block w-100 btn-primary">
+                        Decrementar Visitante (-)
+                    </button>
+                </div>
+                <div class="col-12 col-sm-4 my-1">
+                    <button id="invert-score" class="btn d-block w-100 btn-primary">
+                        Invertir Puntaje
+                    </button>
+                </div>
+                <div class="col-12 col-sm-4 my-1">
+                    <button id="finish-game" class="btn d-block w-100 btn-danger">
+                        Finalizar Partido
+                    </button>
+                </div>
+                <div class="col-12 col-sm-4 my-1">
+                    <button id="reset-game" class="btn d-block w-100 btn-success">
+                        Reiniciar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script>
+    const localScoreElement = document.getElementById('local-score');
+    const visitorScoreElement = document.getElementById('visitor-score');
+    const incrementLocalButton = document.getElementById('increment-local');
+    const decrementLocalButton = document.getElementById('decrement-local');
+    const incrementVisitorButton = document.getElementById('increment-visitor');
+    const decrementVisitorButton = document.getElementById('decrement-visitor');
+    const invertScoreButton = document.getElementById('invert-score');
+    const finishGameButton = document.getElementById('finish-game');
+    const resetGameButton = document.getElementById('reset-game');
+
+    let localScore = 0;
+    let visitorScore = 0;
+    let gameFinished = false;
+
+    incrementLocalButton.addEventListener('click', () => {
+        if (!gameFinished) {
+            localScore++;
+            localScoreElement.textContent = localScore;
+        }
+    });
+
+    decrementLocalButton.addEventListener('click', () => {
+        if (!gameFinished && localScore > 0) {
+            localScore--;
+            localScoreElement.textContent = localScore;
+        }
+    });
+
+    incrementVisitorButton.addEventListener('click', () => {
+        if (!gameFinished) {
+            visitorScore++;
+            visitorScoreElement.textContent = visitorScore;
+        }
+    });
+
+    decrementVisitorButton.addEventListener('click', () => {
+        if (!gameFinished && visitorScore > 0) {
+            visitorScore--;
+            visitorScoreElement.textContent = visitorScore;
+        }
+    });
+
+    invertScoreButton.addEventListener('click', () => {
+        if (!gameFinished) {
+            const temp = localScore;
+            localScore = visitorScore;
+            visitorScore = temp;
+            localScoreElement.textContent = localScore;
+            visitorScoreElement.textContent = visitorScore;
+        }
+    });
+
+    finishGameButton.addEventListener('click', () => {
+        gameFinished = true;
+        incrementLocalButton.disabled = true;
+        decrementLocalButton.disabled = true;
+        incrementVisitorButton.disabled = true;
+        decrementVisitorButton.disabled = true;
+        invertScoreButton.disabled = true;
+    });
+
+    resetGameButton.addEventListener('click', () => {
+        localScore = 0;
+        visitorScore = 0;
+        gameFinished = false;
+        localScoreElement.textContent = localScore;
+        visitorScoreElement.textContent = visitorScore;
+        incrementLocalButton.disabled = false;
+        decrementLocalButton.disabled = false;
+        incrementVisitorButton.disabled = false;
+        decrementVisitorButton.disabled = false;
+        invertScoreButton.disabled = false;
+    });
+</script>
+</body>
+</html>
